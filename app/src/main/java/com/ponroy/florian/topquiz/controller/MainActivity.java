@@ -121,6 +121,12 @@ public class MainActivity extends AppCompatActivity {
                     Log.i("score", String.valueOf(u.getScore()));
                 }
             }
+
+
+            // Save my ArrayList into SharedPreferences.
+            //And FetchAll in ScoreActivity
+
+
             greetUser();
         }
     }
