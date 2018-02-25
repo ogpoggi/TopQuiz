@@ -2,6 +2,7 @@ package com.ponroy.florian.topquiz.controller;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.ponroy.florian.topquiz.R;
 import com.ponroy.florian.topquiz.model.User;
 
@@ -113,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
             int score = data.getIntExtra(GameActivity.BUNDLE_EXTRA_SCORE, 0);
             mUser.setScore(score);
 
-            mPreferences.edit().putInt(PREF_KEY_SCORE, score).apply();
             userList.add(mUser);
             if (userList != null) {
                 for (User u : userList) {
@@ -122,10 +123,12 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-
+            Gson gson = new Gson();
+            String json = gson.toJson(userList);
+            mPreferences.edit().putInt(PREF_KEY_SCORE, score).apply();
+            mPreferences.edit().putString("userLi", json);
             // Save my ArrayList into SharedPreferences.
             //And FetchAll in ScoreActivity
-
 
             greetUser();
         }
