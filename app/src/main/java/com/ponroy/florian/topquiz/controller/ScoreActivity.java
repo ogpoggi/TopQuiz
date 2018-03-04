@@ -31,7 +31,7 @@ public class ScoreActivity extends AppCompatActivity{
 
         Gson gson = new Gson();
         String json = sharedPreferences.getString("userLi", null);
-        Type type = new TypeToken<ArrayList>() {}.getType();
+        Type type = new TypeToken<ArrayList<User>>() {}.getType();
         ArrayList<User> userList = gson.fromJson(json, type);
         if(sharedPreferences.contains("userLi")){
             Log.i("Test","Contient userList");
