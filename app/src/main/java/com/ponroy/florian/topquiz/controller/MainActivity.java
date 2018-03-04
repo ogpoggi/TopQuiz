@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 import com.ponroy.florian.topquiz.R;
 import com.ponroy.florian.topquiz.model.User;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -121,6 +122,10 @@ public class MainActivity extends AppCompatActivity {
                     Log.i("name", u.getFirstname());
                     Log.i("score", String.valueOf(u.getScore()));
                 }
+            }
+            mPreferences.edit().remove("userLi").apply();
+            if(mPreferences.contains("userLi")){
+                Log.i("ERROR","problème");
             }
             Gson gson = new Gson();
             String json = gson.toJson(userList);

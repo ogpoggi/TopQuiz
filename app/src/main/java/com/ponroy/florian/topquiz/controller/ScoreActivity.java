@@ -1,7 +1,9 @@
 package com.ponroy.florian.topquiz.controller;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,25 +21,25 @@ import java.util.List;
 
 public class ScoreActivity extends AppCompatActivity{
 
-    SharedPreferences sharedPreferences;
+    SharedPreferences mPreferences;
     private ListView lv_user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
-        sharedPreferences = getPreferences(MODE_PRIVATE);
+        //mPreferences = getPreferences(MODE_PRIVATE);
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         lv_user = (ListView) findViewById(R.id.lv_user);
-
         Gson gson = new Gson();
-        String json = sharedPreferences.getString("userLi", null);
+        String json = mPreferences.getString("userLi", null);
         Type type = new TypeToken<ArrayList<User>>() {}.getType();
         ArrayList<User> userList = gson.fromJson(json, type);
-        if(sharedPreferences.contains("userLi")){
+        if(mPreferences.contains("userLi")){
             Log.i("Test","Contient userList");
         }
         else{
-            Log.i("Test","NE PAS Contient userList");
+            Log.i("Test","NE Contient PAS userList");
         }
         if(userList == null){
             userList = new ArrayList<User>();
