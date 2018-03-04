@@ -19,7 +19,6 @@ import java.util.List;
 
 public class ScoreActivity extends AppCompatActivity{
 
-    ArrayList<User> userList;
     SharedPreferences sharedPreferences;
     private ListView lv_user;
 
@@ -27,16 +26,27 @@ public class ScoreActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
-
+        sharedPreferences = getPreferences(MODE_PRIVATE);
         lv_user = (ListView) findViewById(R.id.lv_user);
 
         Gson gson = new Gson();
-        String json = sharedPreferences.getString("userLi", "");
-        Type type = new TypeToken<ArrayList<User>>(){}.getType();
-        userList = gson.fromJson(json, type);
-        for(User u : userList){
-            Log.i("name",u.getFirstname());
-            Log.i("score", String.valueOf(u.getScore()));
+        String json = sharedPreferences.getString("userLi", null);
+        Type type = new TypeToken<ArrayList>() {}.getType();
+        ArrayList<User> userList = gson.fromJson(json, type);
+        if(sharedPreferences.contains("userLi")){
+            Log.i("Test","Contient userList");
+        }
+        else{
+            Log.i("Test","NE PAS Contient userList");
+        }
+        if(userList == null){
+            userList = new ArrayList<User>();
+            Log.i("error","error");
+        }else {
+            for (User u : userList) {
+                Log.i("name", u.getFirstname());
+                Log.i("score", String.valueOf(u.getScore()));
+            }
         }
     }
 }

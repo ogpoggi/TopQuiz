@@ -122,14 +122,14 @@ public class MainActivity extends AppCompatActivity {
                     Log.i("score", String.valueOf(u.getScore()));
                 }
             }
-
             Gson gson = new Gson();
             String json = gson.toJson(userList);
             mPreferences.edit().putInt(PREF_KEY_SCORE, score).apply();
-            mPreferences.edit().putString("userLi", json);
-            // Save my ArrayList into SharedPreferences.
-            //And FetchAll in ScoreActivity
-
+            mPreferences.edit().putString("userLi", json).apply();
+            if(mPreferences.contains("userLi")){
+                Log.i("userLi","good");
+            }else
+                Log.i("userLi","bad");
             greetUser();
         }
     }
